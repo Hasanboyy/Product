@@ -6,7 +6,7 @@ import org.springframework.data.domain.Sort;
 
 @Getter
 @Setter
-public class FilterDto {
+public class FilterDto{
     private Integer page;
     private Integer size;
     private String sortBy;

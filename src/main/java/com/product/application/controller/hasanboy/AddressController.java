@@ -53,6 +53,4 @@ public class AddressController {
         List<AddressDto> result = addressService.filter(addressFilter);
         return ResponseEntity.ok(result);
     }
-
-
 }

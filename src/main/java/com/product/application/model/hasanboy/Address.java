@@ -17,7 +17,7 @@ public class Address {
     private Integer id;
     private String region;
     private String city;
-    private String district;//Tuman
+    private String district;
     private String street;
     private Integer home;
     private Boolean status;

@@ -2,12 +2,20 @@ package com.product.application.service.hasanboy;
 
 import com.product.application.dto.hasanboy.AddressDto;
 import com.product.application.exception.ProductException;
+import com.product.application.filter.hasanboy.AddressFilter;
 import com.product.application.model.hasanboy.Address;
 import com.product.application.repository.hasanboy.AddressRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.Predicate;
+import java.awt.print.Pageable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,6 +55,58 @@ public class AddressService {
         return true;
     }
 
+    public List<AddressDto> findAllByPage(Integer page, Integer size) {
+        Pageable pageable = (Pageable) PageRequest.of(page,size);
+        Page<Address> resultPage = addressRepository.findAll((org.springframework.data.domain.Pageable) pageable);
+        List<AddressDto> response = new ArrayList<>();
+        for (Address address: resultPage) {
+            if (address.getDeletedAt() == null){
+                AddressDto addressDto = new AddressDto();
+                convertEntityToDto(address,addressDto);
+                response.add(addressDto);
+            }
+        }
+        return response;
+    }
+
+    public List<AddressDto> filter(AddressFilter addressFilter) {
+        String sortBy = addressFilter.getSortBy();
+        if (sortBy == null || sortBy.isEmpty()){
+            sortBy = "createdAt";
+        }
+
+        List<Predicate> predicateList = new ArrayList<>();
+        Specification<Address> specification = (((root, query, criteriaBuilder) -> {
+            if (addressFilter.getRegion() != null){
+                predicateList.add(criteriaBuilder.like(root.get("region"),"" + addressFilter.getRegion() + ""));
+            }
+            if (addressFilter.getCity() != null){
+                predicateList.add(criteriaBuilder.like(root.get("city"),"" + addressFilter.getRegion() + ""));
+            }
+            if (addressFilter.getDistrict() != null){
+                predicateList.add(criteriaBuilder.like(root.get("district"),"" + addressFilter.getRegion() + ""));
+            }
+            if (addressFilter.getStreet() != null){
+                predicateList.add(criteriaBuilder.like(root.get("street"),"" + addressFilter.getRegion() + ""));
+            }
+            if (addressFilter.getHome() != null){
+                predicateList.add(criteriaBuilder.equal(root.get("home"),addressFilter.getHome()));
+            }
+            return criteriaBuilder.and(predicateList.toArray(new javax.persistence.criteria.Predicate[0]));
+        }));
+
+        Pageable pageable = (Pageable) PageRequest.of(addressFilter.getPage(),addressFilter.getSize(),addressFilter.getDirection(),sortBy);
+        List<AddressDto> resultList = new ArrayList<>();
+        Page<Address> addressPage = addressRepository.findAll(specification, (org.springframework.data.domain.Pageable) pageable);
+        for (Address address : addressPage) {
+            if (address.getDeletedAt() == null){
+                AddressDto addressDto = new AddressDto();
+                convertEntityToDto(address,addressDto);
+                resultList.add(addressDto);
+            }
+        }
+        return resultList;
+    }
     private Address getEntity(Integer id) {
         Optional<Address> optional = addressRepository.findByIdAndDeletedAtIsNull(id);
         if (optional.isEmpty()){
@@ -62,6 +122,7 @@ public class AddressService {
         dto.setDistrict(address.getDistrict());
         dto.setStreet(address.getStreet());
     }
+
     private void convertDtotoEntity(AddressDto dto, Address address) {
         address.setRegion(dto.getRegion());
         address.setCity(dto.getCity());

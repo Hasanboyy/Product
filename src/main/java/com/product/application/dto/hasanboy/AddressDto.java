@@ -13,13 +13,13 @@ import javax.validation.constraints.Size;
 public class AddressDto {
     private Integer id;
     @NotBlank(message = ("The region cannot be empty or null"))
-    private String region;
+    private String region; //Mintaqa
     @NotBlank(message = ("The region cannot be empty or null"))
-    private String city;
+    private String city; //Shahar
     @NotBlank(message = ("The region cannot be empty or null"))
-    private String district;//Tuman
+    private String district; //Tuman
     @NotBlank(message = ("The region cannot be empty or null"))
-    private String street;
-    @Size(min = 3,max = 10,message = ("The number size of the house should be 3 to 10 times"))
+    private String street; //Ko`cha
+    //@Size(min = 3,max = 10,message = ("The number size of the house should be 3 to 10 times"))
     private Integer home;
 }

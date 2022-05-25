@@ -1,4 +1,4 @@
-package com.product.application.filter.azamat;
+package com.product.application.filter;
 
 import lombok.Getter;
 import lombok.Setter;

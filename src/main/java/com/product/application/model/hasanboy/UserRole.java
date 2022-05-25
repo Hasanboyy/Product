@@ -15,5 +15,5 @@ public class UserRole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private String status;
+    private Boolean status;
 }

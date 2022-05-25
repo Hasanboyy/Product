@@ -17,18 +17,20 @@ public class User {
     private String surname;
     private String email;
     private String password;
-    private String status;
+    private Boolean status;
     @OneToOne
-    @JoinColumn(name = ("image"))
+    @JoinColumn(name = ("image"),insertable = false,updatable = false)
     private Image image;
     @Column(name = ("image_id"))
     private Integer imageId;
     @ManyToOne
-    @JoinColumn(name = ("user_role"))
+    @JoinColumn(name = ("user_role"),insertable = false,updatable = false)
     private UserRole userRole;
     @Column(name = ("user_role_id"))
     private Integer userRoleId;
-
+    @OneToOne
+    @JoinColumn(name = ("address"),insertable = false,updatable = false)
     private Address address;
+    @Column(name = ("adress_id"))
     private Integer addressId;
 }

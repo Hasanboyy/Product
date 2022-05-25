@@ -17,4 +17,5 @@ public class Image {
     private String type;
     private Long size;
     private String token;
+    private Boolean status;
 }

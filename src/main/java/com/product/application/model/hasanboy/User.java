@@ -16,6 +16,7 @@ public class User {
     private String name;
     private String surname;
     private String email;
+    private Integer contact;
     private String password;
     private Boolean status;
     @OneToOne

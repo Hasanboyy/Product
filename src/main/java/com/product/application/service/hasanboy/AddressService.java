@@ -107,7 +107,7 @@ public class AddressService {
         }
         return resultList;
     }
-    private Address getEntity(Integer id) {
+    public Address getEntity(Integer id) {
         Optional<Address> optional = addressRepository.findByIdAndDeletedAtIsNull(id);
         if (optional.isEmpty()){
             throw new ProductException("Address not found");

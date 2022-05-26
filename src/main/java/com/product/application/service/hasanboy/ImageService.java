@@ -56,7 +56,7 @@ public class ImageService {
         return false;
     }
 
-    private Image getEntity(Integer id) {
+    public Image getEntity(Integer id) {
         Optional<Image> optional = imageRepository.findByIdAndDeletedAtIsNull(id);
         if (optional.isEmpty()) {
             throw new ProductException("Image not found");

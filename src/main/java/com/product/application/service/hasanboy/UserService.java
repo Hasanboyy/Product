@@ -73,6 +73,7 @@ public class UserService {
         dto.setSurname(user.getSurname());
         dto.setEmail(user.getEmail());
         dto.setContact(user.getContact());
+        dto.setStatus(true);
     }
 
     public void convertEntityToDto(UserDto dto, User user) {
@@ -83,5 +84,6 @@ public class UserService {
         user.setSurname(dto.getSurname());
         user.setEmail(dto.getEmail());
         user.setContact(dto.getContact());
+        user.setStatus(true);
     }
 }

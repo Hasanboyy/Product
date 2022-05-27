@@ -28,6 +28,7 @@ public class UserDto {
     private String password;
     @NotNull
     private Integer contact;
+    private Boolean status;
 
     private Image image;
     @NotNull(message = ("The imageId cannot be empty or null"))

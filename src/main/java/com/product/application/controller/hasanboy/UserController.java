@@ -2,11 +2,10 @@ package com.product.application.controller.hasanboy;
 
 import com.product.application.dto.hasanboy.UserDto;
 import com.product.application.service.hasanboy.UserService;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import lombok.AllArgsConstructor;
 import javax.validation.Valid;
 
 @RestController
@@ -30,7 +29,7 @@ public class UserController {
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Integer id,
                                     @RequestBody @Valid UserDto dto){
-        boolean result = userService.update(id);
+        boolean result = userService.update(id,dto);
         return ResponseEntity.ok(result);
     }
 

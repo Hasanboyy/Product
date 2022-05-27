@@ -23,8 +23,8 @@ public class UserService {
 
     public boolean create(UserDto dto) {
         User user = new User();
-
         user.setId(dto.getId());
+        user.setCreatedAt(LocalDateTime.now());
         imageService.getEntity(dto.getImageId());
         addressService.getEntity(dto.getAddressId());
         userRoleService.getEntity(dto.getUserRoleId());
@@ -42,6 +42,7 @@ public class UserService {
     public boolean update(Integer id, UserDto dto) {
         User update = getEntity(id);
         update.setId(dto.getId());
+        update.setDeletedAt(LocalDateTime.now());
         imageService.getEntity(dto.getImageId());
         addressService.getEntity(dto.getAddressId());
         userRoleService.getEntity(dto.getUserRoleId());

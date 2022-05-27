@@ -18,6 +18,5 @@ public class ImageDto {
     private String type;
     @NotBlank(message = ("The token cannot be empty or null"))
     private String token;
-    @Size(min = 1,max = 10)
     private Long size;
 }

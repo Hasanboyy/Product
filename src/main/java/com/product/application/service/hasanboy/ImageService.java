@@ -53,7 +53,7 @@ public class ImageService {
         Image image = getEntity(id);
         image.setDeletedAt(LocalDateTime.now());
         imageRepository.save(image);
-        return false;
+        return true;
     }
 
     public Image getEntity(Integer id) {

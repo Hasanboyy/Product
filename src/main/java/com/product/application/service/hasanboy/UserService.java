@@ -23,6 +23,7 @@ public class UserService {
 
     public boolean create(UserDto dto) {
         User user = new User();
+
         user.setId(dto.getId());
         imageService.getEntity(dto.getImageId());
         addressService.getEntity(dto.getAddressId());

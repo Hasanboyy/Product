@@ -5,10 +5,12 @@ import com.product.application.exception.ProductException;
 import com.product.application.model.hasanboy.User;
 import com.product.application.repository.hasanboy.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+@Service
 @AllArgsConstructor
 public class UserService {
     private UserRepository userRepository;

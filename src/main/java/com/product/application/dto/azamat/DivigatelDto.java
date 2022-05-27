@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -12,6 +12,6 @@ import javax.validation.constraints.NotBlank;
 public class DivigatelDto {
     private Integer id;
 
-    @NotBlank(message = "The name cannot empty")
-    private String name;
+   @NotNull
+    private Double size;
 }

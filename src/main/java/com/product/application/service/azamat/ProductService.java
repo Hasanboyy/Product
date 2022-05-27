@@ -2,10 +2,16 @@ package com.product.application.service.azamat;
 
 import com.product.application.dto.azamat.ProductDto;
 import com.product.application.filter.azamat.ProductFilter;
+import com.product.application.repository.azamat.ProductRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
+@AllArgsConstructor
 public class ProductService {
+
+    private final ProductRepository productRepository;
     public boolean create(ProductDto productDto) {
         return false;
     }

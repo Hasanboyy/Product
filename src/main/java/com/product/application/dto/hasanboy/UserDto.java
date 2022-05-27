@@ -7,6 +7,7 @@ import com.product.application.model.hasanboy.UserRole;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -21,6 +22,7 @@ public class UserDto {
     @NotBlank(message = ("The surname cannot be empty or null"))
     private String surname;
     @NotBlank(message = ("The email cannot be empty or null"))
+    @Email
     private String email;
     @NotBlank(message = ("The password cannot be empty or null"))
     private String password;

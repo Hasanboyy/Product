@@ -5,12 +5,12 @@ import com.product.application.exception.ProductException;
 import com.product.application.filter.hasanboy.ImageFilter;
 import com.product.application.model.hasanboy.Image;
 import com.product.application.repository.hasanboy.ImageRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import lombok.AllArgsConstructor;
 import javax.persistence.criteria.Predicate;
 import java.awt.print.Pageable;
 import java.time.LocalDateTime;
@@ -27,8 +27,8 @@ public class ImageService {
     public boolean create(ImageDto dto) {
         Image image = new Image();
         image.setId(dto.getId());
-        convertDtoToEntity(dto, image);
         image.setCreatedAt(LocalDateTime.now());
+        convertDtoToEntity(dto, image);
         imageRepository.save(image);
         return true;
     }
@@ -53,7 +53,7 @@ public class ImageService {
         Image image = getEntity(id);
         image.setDeletedAt(LocalDateTime.now());
         imageRepository.save(image);
-        return false;
+        return true;
     }
 
     public Image getEntity(Integer id) {

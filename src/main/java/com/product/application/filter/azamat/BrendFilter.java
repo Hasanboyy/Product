@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProductFilter extends FilterDto {
+public class BrendFilter  extends FilterDto {
     private String name;
     private String surname;
     private String direc;

@@ -1,8 +1,9 @@
 package com.product.application.controller.azamat;
 
-import com.product.application.dto.azamat.ProductDto;
-import com.product.application.filter.azamat.ProductFilter;
-import com.product.application.service.azamat.ProductService;
+import com.product.application.dto.azamat.DivigatelDto;
+import com.product.application.filter.azamat.BrendFilter;
+import com.product.application.filter.azamat.DivigatelFilter;
+import com.product.application.service.azamat.DivigatelService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,44 +12,46 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/divigatels")
 @AllArgsConstructor
-public class ProductController {
-    private final ProductService productService;
+public class DivigatelController {
+
+    private final DivigatelService divigatelService;
+
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody @Valid ProductDto productDto){
-        boolean result = productService.create(productDto);
+    public ResponseEntity<?> create(@RequestBody @Valid DivigatelDto divigatelDto){
+        boolean result = divigatelService.create(divigatelDto);
         return ResponseEntity.ok(result);
     }
     @GetMapping("/get{id}")
     public ResponseEntity<?> get(@PathVariable("id") Integer id){
-        ProductDto result = productService.get(id);
+        DivigatelDto result = divigatelService.get(id);
         return ResponseEntity.ok(result);
     }
 
     @PutMapping("/update{id}")
     public ResponseEntity<?> update(@PathVariable("id") Integer id,
-                                    @RequestBody @Valid ProductDto productDto){
-        boolean result = productService.update(id, productDto);
+                                    @RequestBody @Valid DivigatelDto divigatelDto){
+        boolean result = divigatelService.update(id, divigatelDto);
         return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/delete{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Integer id){
-        boolean result = productService.delete(id);
+        boolean result = divigatelService.delete(id);
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/pagenation")
     public ResponseEntity<?> getAll(@RequestParam("s") Integer size,
                                     @RequestParam("p") Integer page){
-        List<ProductDto> result = productService.findAllByPage(page, size);
+        List<DivigatelDto> result = divigatelService.findAllByPage(page, size);
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<?> filter(@RequestBody ProductFilter productFilter){
-        List<ProductDto> result = productService.filter(productFilter);
+    public ResponseEntity<?> filter(@RequestBody DivigatelFilter divigatelFilter){
+        List<DivigatelDto> result = divigatelService.filter(divigatelFilter);
         return ResponseEntity.ok(result);
     }
 }

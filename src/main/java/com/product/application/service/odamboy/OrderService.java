@@ -45,6 +45,7 @@ public class OrderService {
         update.setAddress(orderDto.getAddress());
         update.setRequirement(orderDto.getRequirement());
         update.setTotalPayment(orderDto.getTotalPayment());
+        update.setUserId(orderDto.getUserId());
         update.setStatus(true);
         update.setUpdateAt(LocalDateTime.now());
         orderRepository.save(update);

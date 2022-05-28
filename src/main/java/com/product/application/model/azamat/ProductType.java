@@ -25,6 +25,24 @@ public class ProductType {
     private Integer productType;
     private Boolean status;
 
+    @ManyToOne
+    @JoinColumn(name = ("merchant"), insertable = false, updatable = false)
+    private Merchant merchant;
+    @Column(name = ("merchant_id"))
+    private Integer merchantId;
+
+    @ManyToOne
+    @JoinColumn(name = ("brend"), insertable = false, updatable = false)
+    private Brend brend;
+    @Column(name = ("brend_id"))
+    private Integer brendId;
+
+    @ManyToOne
+    @JoinColumn(name = ("dvigatel"), insertable = false, updatable = false)
+    private Divigatel divigatel;
+    @Column(name = ("dvigatel_id"))
+    private Integer dvigatelId;
+
 
     @Column(name = ("created_at"))
     private LocalDateTime createdAt;

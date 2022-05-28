@@ -15,16 +15,16 @@ import java.time.LocalDateTime;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
-
     private String name;
-    private Boolean status;
-
     private String description;
     private BigDecimal price;
     private Integer rate;
-    private Boolean visible;
     private Integer productType;
+
+    private Boolean visible;
+    private Boolean status;
 
     @Column(name = ("created_at"))
     private LocalDateTime createdAt;

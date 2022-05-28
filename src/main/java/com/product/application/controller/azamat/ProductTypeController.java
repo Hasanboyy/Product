@@ -1,6 +1,5 @@
 package com.product.application.controller.azamat;
 
-import com.product.application.dto.azamat.ProductDto;
 import com.product.application.dto.azamat.ProductTypeDto;
 import com.product.application.filter.azamat.ProductTypeFilter;
 import com.product.application.service.azamat.ProductTypeService;
@@ -25,7 +24,7 @@ public class ProductTypeController {
 
     @GetMapping("/get{id}")
     public ResponseEntity<?> get(@PathVariable("id") Integer id){
-        ProductDto result = productTypeService.get(id);
+        ProductTypeDto result = productTypeService.get(id);
         return ResponseEntity.ok(result);
     }
 

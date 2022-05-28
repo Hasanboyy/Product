@@ -101,7 +101,7 @@ public class BrendService {
         return resultList;
     }
 
-    private Brend getEntity(Integer id) {
+    Brend getEntity(Integer id) {
         Optional<Brend> optional = brendRepository.findByIdAndDeletedAtIsNull(id);
         if (optional.isEmpty()){
             throw new ProductException("Brend not found");

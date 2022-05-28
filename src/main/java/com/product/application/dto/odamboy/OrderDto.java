@@ -29,4 +29,9 @@ public class OrderDto {
     @NotBlank(message = ("Invalid user"))
     private Integer userId;
 
+    @Column(name = ("delivery_date"))
+    private LocalDateTime deliveryDate;
+    @Column(name = ("delivered_date"))
+    private LocalDateTime deliveredDate;
+
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -18,6 +19,12 @@ public class Product {
 
     private String name;
     private Boolean status;
+
+    private String description;
+    private BigDecimal price;
+    private Integer rate;
+    private Boolean visible;
+    private Integer productType;
 
     @Column(name = ("created_at"))
     private LocalDateTime createdAt;

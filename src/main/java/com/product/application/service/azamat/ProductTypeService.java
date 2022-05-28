@@ -56,6 +56,11 @@ public class ProductTypeService {
         brendService.getEntity(update.getBrendId());
         update.setBrendId(productTypeDto.getBrendId());
 
+        divigatelService.getEntity(update.getDvigatelId());
+        update.setDvigatelId(productTypeDto.getDvigatelId());
+
+        menrchantService.getEntity(update.getMerchantId());
+        update.setMerchantId(productTypeDto.getMerchantID());
 
         update.setName(productTypeDto.getName());
         update.setUpdatedAt(LocalDateTime.now());
@@ -71,7 +76,7 @@ public class ProductTypeService {
 
     public List<ProductTypeDto> findAllByPage(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page,size);
-        Page<ProductType> resultPage = ProductTypeRepository.findAll(pageable);
+        Page<ProductType> resultPage = productTypeRepository.findAll(pageable);
         List<ProductTypeDto> response = new ArrayList<>();
         for (ProductType productType : resultPage) {
             if (productType.getDeletedAt() == null){
@@ -81,10 +86,6 @@ public class ProductTypeService {
             }
         }
         return response;
-    }
-
-    public List<ProductTypeDto> filter(ProductTypeFilter productTypeFilter) {
-        return null;
     }
 
     private void convertDtoToEntity(ProductTypeDto productTypeDto, ProductType productType) {

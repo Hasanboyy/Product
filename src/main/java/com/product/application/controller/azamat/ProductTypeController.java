@@ -47,10 +47,4 @@ public class ProductTypeController {
         List<ProductTypeDto> result = productTypeService.findAllByPage(page, size);
         return ResponseEntity.ok(result);
     }
-
-    @GetMapping("/filter")
-    public ResponseEntity<?> filter(@RequestBody ProductTypeFilter productTypeFilter){
-        List<ProductTypeDto> result = productTypeService.filter(productTypeFilter);
-        return ResponseEntity.ok(result);
-    }
 }

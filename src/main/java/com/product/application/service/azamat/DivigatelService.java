@@ -101,7 +101,7 @@ public class DivigatelService {
         return resultList;
     }
 
-    private Divigatel getEntity(Integer id) {
+    public Divigatel getEntity(Integer id) {
         Optional<Divigatel> optional = divigatelRepository.findByIdAndDeletedAtIsNull(id);
         if (optional.isEmpty()){
             throw new ProductException("Dvigatel not found");

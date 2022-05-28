@@ -82,8 +82,6 @@ public class ProductTypeService {
         }
         return response;
     }
-        return null;
-    }
 
     public List<ProductTypeDto> filter(ProductTypeFilter productTypeFilter) {
         return null;

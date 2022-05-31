@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -15,4 +17,18 @@ public class ProductDto {
 
     @NotBlank(message = "The name cannot empty")
     private String name;
+
+    @NotBlank(message = "Invalid description")
+    private String description;
+
+    @NotNull
+    private BigDecimal price;
+
+    @NotNull
+    private Integer rate;
+
+    @NotNull
+    private Integer productType;
+
+    private Boolean visible;
 }

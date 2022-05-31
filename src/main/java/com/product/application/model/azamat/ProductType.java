@@ -4,34 +4,41 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 
 @Entity
-@Table(name = ("productType"))
+@Table(name = ("productTypes"))
 public class ProductType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
-    private String description;
-    private BigDecimal price;
-    private Integer rate;
-    private Boolean visible;
-    private Integer productType;
     private Boolean status;
 
+    @ManyToOne
+    @JoinColumn(name = ("merchant"), insertable = false, updatable = false)
+    private Merchant merchant;
+    @Column(name = ("merchant_id"))
+    private Integer merchantId;
 
-    @Column(name = ("created_at"))
+    @ManyToOne
+    @JoinColumn(name = ("brend"), insertable = false, updatable = false)
+    private Brend brend;
+    @Column(name = ("brend_id"))
+    private Integer brendId;
+
+    @ManyToOne
+    @JoinColumn(name = ("dvigatel"), insertable = false, updatable = false)
+    private Divigatel divigatel;
+    @Column(name = ("dvigatel_id"))
+    private Integer dvigatelId;
+
+
     private LocalDateTime createdAt;
-
-    @Column(name = ("updated_at"))
     private LocalDateTime updatedAt;
-
-    @Column(name = ("deleted_at"))
     private LocalDateTime deletedAt;
 }

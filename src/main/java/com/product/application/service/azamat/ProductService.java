@@ -21,7 +21,6 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class ProductService {
-
     private final ProductRepository productRepository;
     public boolean create(ProductDto productDto) {
         Product product = new Product();
@@ -41,6 +40,11 @@ public class ProductService {
     public boolean update(Integer id, ProductDto productDto) {
         Product update = getEntity(id);
         update.setName(productDto.getName());
+        update.setDescription(productDto.getDescription());
+        update.setPrice(productDto.getPrice());
+        update.setRate(productDto.getRate());
+        update.setProductType(productDto.getProductType());
+        update.setVisible(true);
         update.setStatus(true);
         update.setUpdatedAt(LocalDateTime.now());
         productRepository.save(update);
@@ -103,15 +107,24 @@ public class ProductService {
 
 
 
+    private void convertDtoToEntity(ProductDto dto, Product entity) {
+        entity.setName(dto.getName());
+        entity.setDescription(dto.getDescription());
+        entity.setRate(dto.getRate());
+        entity.setPrice(dto.getPrice());
+        entity.setProductType(dto.getProductType());
+        entity.setVisible(true);
+        entity.setStatus(true);
+        entity.setCreatedAt(LocalDateTime.now());
+    }
+
     private void convertEntityToDto(ProductDto dto, Product entity) {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
-    }
-
-    private void convertDtoToEntity(ProductDto dto, Product entity) {
-        entity.setName(dto.getName());
-        entity.setStatus(true);
-        entity.setCreatedAt(LocalDateTime.now());
+        dto.setDescription(entity.getDescription());
+        dto.setProductType(entity.getProductType());
+        dto.setPrice(entity.getPrice());
+        dto.setRate(entity.getRate());
     }
 
     private Product getEntity(Integer id) {

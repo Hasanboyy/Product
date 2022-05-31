@@ -1,6 +1,5 @@
 package com.product.application.controller.azamat;
 
-import com.product.application.dto.azamat.ProductDto;
 import com.product.application.dto.azamat.ProductTypeDto;
 import com.product.application.filter.azamat.ProductTypeFilter;
 import com.product.application.service.azamat.ProductTypeService;
@@ -25,7 +24,7 @@ public class ProductTypeController {
 
     @GetMapping("/get{id}")
     public ResponseEntity<?> get(@PathVariable("id") Integer id){
-        ProductDto result = productTypeService.get(id);
+        ProductTypeDto result = productTypeService.get(id);
         return ResponseEntity.ok(result);
     }
 
@@ -46,12 +45,6 @@ public class ProductTypeController {
     public ResponseEntity<?> getAll(@RequestParam("s") Integer size,
                                     @RequestParam("p") Integer page){
         List<ProductTypeDto> result = productTypeService.findAllByPage(page, size);
-        return ResponseEntity.ok(result);
-    }
-
-    @GetMapping("/filter")
-    public ResponseEntity<?> filter(@RequestBody ProductTypeFilter productTypeFilter){
-        List<ProductTypeDto> result = productTypeService.filter(productTypeFilter);
         return ResponseEntity.ok(result);
     }
 }

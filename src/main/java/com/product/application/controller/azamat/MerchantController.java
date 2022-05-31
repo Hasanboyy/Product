@@ -1,6 +1,7 @@
 package com.product.application.controller.azamat;
 
 import com.product.application.dto.azamat.MerchandDto;
+import com.product.application.filter.azamat.MarchantFilter;
 import com.product.application.service.azamat.MenrchantService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -48,8 +49,8 @@ public class MerchantController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<?> filter(@RequestBody MerchandDto merchandDto){
-        List<MerchandDto> result = menrchantService.filter(merchandDto);
+    public ResponseEntity<?> filter(@RequestBody MarchantFilter marchantFilter){
+        List<MerchandDto> result = menrchantService.filter(marchantFilter);
         return ResponseEntity.ok(result);
     }
 }

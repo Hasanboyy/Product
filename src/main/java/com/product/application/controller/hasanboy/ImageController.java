@@ -4,7 +4,6 @@ import com.product.application.dto.hasanboy.ImageDto;
 import com.product.application.filter.hasanboy.ImageFilter;
 import com.product.application.service.hasanboy.ImageService;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +21,7 @@ public class ImageController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/get{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<?> get(@PathVariable("id") Integer id){
         ImageDto result = imageService.get(id);
         return ResponseEntity.ok(result);

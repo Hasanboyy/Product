@@ -5,13 +5,13 @@ import com.product.application.exception.ProductException;
 import com.product.application.filter.hasanboy.UserRoleFilter;
 import com.product.application.model.hasanboy.UserRole;
 import com.product.application.repository.hasanboy.UserRoleRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
+import lombok.AllArgsConstructor;
 import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,21 +26,26 @@ public class UserRoleService {
     public boolean create(UserRoleDto dto) {
         UserRole userRole = new UserRole();
         userRole.setId(dto.getId());
-        covertDtoToEntity(dto, userRole);
+        userRole.setName(dto.getName());
+        userRole.setCreatedAt(LocalDateTime.now());
+        userRoleRepository.save(userRole);
         return true;
     }
 
     public UserRoleDto get(Integer id) {
         UserRole userRole = getEntity(id);
         UserRoleDto dto = new UserRoleDto();
-        convertEntityToDto(dto, userRole);
+        dto.setId(userRole.getId());
+        dto.setName(userRole.getName());
         return dto;
     }
 
     public boolean update(Integer id, UserRoleDto dto) {
         UserRole userRole = getEntity(id);
         userRole.setUpdatedAt(LocalDateTime.now());
-        covertDtoToEntity(dto, userRole);
+        userRole.setName(dto.getName());
+        userRole.setUpdatedAt(LocalDateTime.now());
+        userRoleRepository.save(userRole);
         return true;
     }
 
@@ -59,21 +64,14 @@ public class UserRoleService {
         return optional.get();
     }
 
-    private void covertDtoToEntity(UserRoleDto dto, UserRole userRole) {
-        userRole.setName(dto.getName());
-    }
-
-    private void convertEntityToDto(UserRoleDto dto, UserRole userRole) {
-        dto.setName(userRole.getName());
-    }
-
     public List<UserRoleDto> fildAllByPage(Integer page, Integer size) {
         Pageable pageable = (Pageable) PageRequest.of(page, size);
         Page<UserRole> resultPage = userRoleRepository.findAll((org.springframework.data.domain.Pageable) pageable);
         List<UserRoleDto> response = new ArrayList<>();
         for (UserRole userRole : resultPage) {
             UserRoleDto userRoleDto = new UserRoleDto();
-            convertEntityToDto(userRoleDto,userRole);
+            userRoleDto.setId(userRole.getId());
+            userRoleDto.setName(userRole.getName());
             response.add(userRoleDto);
         }
         return response;
@@ -97,7 +95,8 @@ public class UserRoleService {
         for (UserRole userRole : userRolePage) {
             if (userRole.getDeletedAt() == null){
                 UserRoleDto dto = new UserRoleDto();
-                convertEntityToDto(dto,userRole);
+                dto.setId(userRole.getId());
+                dto.setName(userRole.getName());
                 resultList.add(dto);
             }
         }

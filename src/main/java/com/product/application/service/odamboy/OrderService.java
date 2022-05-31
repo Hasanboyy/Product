@@ -66,15 +66,15 @@ public class OrderService {
         }
         return optional.get();
     }
+
     public void convertDtoToEntity(OrderDto orderDto, Order order){
         order.setContact(orderDto.getContact());
         order.setAddress(orderDto.getAddress());
         order.setRequirement(orderDto.getRequirement());
         order.setTotalPayment(orderDto.getTotalPayment());
         order.setStatus(true);
-
-
     }
+
     public void convertEntityToDto(OrderDto orderDto, Order order){
         orderDto.setContact(order.getContact());
         orderDto.setAddress(order.getAddress());

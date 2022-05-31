@@ -115,16 +115,16 @@ public class ImageService {
     }
 
     private void convertEntityToDto(ImageDto dto, Image image) {
-        image.setPath(dto.getPath());
-        image.setType(dto.getType());
-        image.setSize(dto.getSize());
-        image.setToken(dto.getToken());
-    }
-
-    private void convertDtoToEntity(ImageDto dto, Image image) {
         dto.setPath(image.getPath());
         dto.setType(image.getType());
         dto.setSize(image.getSize());
         dto.setToken(image.getToken());
+    }
+
+    private void convertDtoToEntity(ImageDto dto, Image image) {
+        image.setPath(dto.getPath());
+        image.setType(dto.getType());
+        image.setSize(dto.getSize());
+        image.setToken(dto.getToken());
     }
 }

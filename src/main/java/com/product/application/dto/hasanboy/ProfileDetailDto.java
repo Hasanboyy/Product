@@ -1,7 +1,7 @@
-package com.product.application.security.dto;
+package com.product.application.dto.hasanboy;
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 
 @Getter

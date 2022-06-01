@@ -1,31 +1,37 @@
-package com.product.application.security.config;
+package com.product.application.config;
 
-import com.product.application.security.model.ProfileEntity;
+import com.product.application.model.hasanboy.ProfileEntity;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-public class CustomUserDetails  implements UserDetails {
+import lombok.Getter;
+import lombok.Setter;
 
-    private Integer id;
-    private String userName;
-    private String password;
-    private Boolean enabled;
-    private String role;
+@Getter
+@Setter
+public class CustomUserDetails implements UserDetails {
 
-    private List<GrantedAuthority> authorityList;
+    private final Integer id;
+    private final String userName;
+    private final String password;
+    private final Boolean enabled;
+    private final String role;
 
-    public CustomUserDetails(ProfileEntity profile) {
+    private final List<GrantedAuthority> authorityList;
+
+    public CustomUserDetails(ProfileEntity profile){
         this.id = profile.getId();
-        this.userName = profile.getUserName();
+        this.userName = profile.getUsername();
         this.password = profile.getPassword();
         this.enabled = profile.getEnabled();
         this.role = profile.getRole();
-        this.authorityList = Collections.singletonList(new SimpleGrantedAuthority(this.role));
+        this.authorityList = Arrays.asList(new SimpleGrantedAuthority(role));
     }
 
     @Override
@@ -61,17 +67,5 @@ public class CustomUserDetails  implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.enabled;
-    }
-
-    @Override
-    public String toString() {
-        return "CustomUserDetails{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", enabled=" + enabled +
-                ", role='" + role + '\'' +
-                ", authorityList=" + authorityList +
-                '}';
     }
 }

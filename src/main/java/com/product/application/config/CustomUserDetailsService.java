@@ -1,10 +1,8 @@
-package com.product.application.security.config;
+package com.product.application.config;
 
-import com.product.application.security.model.ProfileEntity;
-import com.product.application.security.repository.ProfileRepository;
+import com.product.application.model.hasanboy.ProfileEntity;
+import com.product.application.repository.hasanboy.ProfileRepository;
 import lombok.AllArgsConstructor;
-import org.hibernate.event.spi.PreDeleteEvent;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,17 +12,16 @@ import java.util.Optional;
 
 @Component
 @AllArgsConstructor
-public class CustomUserDetailService implements UserDetailsService {
-
+public class CustomUserDetailsService implements UserDetailsService {
     private ProfileRepository profileRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("Keldi: loadUserByUsername.");
+        Optional<ProfileEntity> usersOptional = this.profileRepository.findByUserName(username);
+        usersOptional.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
 
-        Optional<ProfileEntity> userOptional = this.profileRepository.findByUserName(username);
-        userOptional.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
-
-        ProfileEntity profile = userOptional.get();
+        ProfileEntity profile = usersOptional.get();
         System.out.println(profile);
 
         return new CustomUserDetails(profile);

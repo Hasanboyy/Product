@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping("/address")
 @AllArgsConstructor
 public class AddressController {
-
     AddressService addressService;
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody @Valid AddressDto dto){

@@ -1,53 +1,43 @@
-package com.product.application.security.config;
+package com.product.application.config;
 
 import io.jsonwebtoken.*;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
-import java.util.Calendar;
 import java.util.Date;
 
+@Component
+@AllArgsConstructor
 public class JwtTokenUtil {
 
-    private final String jwtSecret = "gschmsdjhvlufxhvnxflnvhj";
-    private final String jwtIssuer = "isystem.uz";
+    private final String jwtSecret = "sgok2nsljd8Fbvnm5Adldxjkbs9Wvnjcb";
+    private final String jwtIssuer = "iSystem.uz";
 
-    public String generateAccessToken(UserDetails userDetails){
+    public String generateAccessToken(UserDetails userDetails) {
         CustomUserDetails user = (CustomUserDetails) userDetails;
 
         JwtBuilder jwtBuilder = Jwts.builder();
-        jwtBuilder.setId("Some id");
+        jwtBuilder.setId("some id");
         jwtBuilder.setIssuedAt(new Date());
-        jwtBuilder.setSubject(String.format("%s,%s",user.getUsername(),user.getPassword()));
-        jwtBuilder.signWith(SignatureAlgorithm.HS256,jwtSecret);
-        jwtBuilder.setExpiration(new Date(System.currentTimeMillis() + (24*60*60*1000)));
+        jwtBuilder.setSubject(String.format("%s,%s", user.getId(), userDetails.getUsername()));
+        jwtBuilder.signWith(SignatureAlgorithm.HS256, jwtSecret);
+        jwtBuilder.setExpiration(new Date(System.currentTimeMillis() + (24 * 60 * 60 * 1000)));
         jwtBuilder.setIssuer(jwtIssuer);
 
-        String jwt = jwtBuilder.compact();
-        return jwt;
+        return jwtBuilder.compact();
     }
 
-    public String generateAccessToken(String username,Integer id){
-        JwtBuilder jwtBuilder = Jwts.builder();
-        jwtBuilder.setId("Some id");
-        jwtBuilder.setIssuedAt(new Date());
-        jwtBuilder.setSubject(String.format("%s,%s",username,id));
-        jwtBuilder.signWith(SignatureAlgorithm.HS256,jwtSecret);
-        jwtBuilder.setExpiration(new Date(System.currentTimeMillis() + (24*60*60*1000)));
-        jwtBuilder.setIssuer(jwtIssuer);
-
-        String jwt = jwtBuilder.compact();
-        return jwt;
-    }
-
-    public String getUserId(String token){
+    public String getUserId(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody();
+
         return claims.getSubject().split(",")[0];
     }
 
-    public String getUsername(String token){
+    public String getUserName(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
@@ -55,11 +45,12 @@ public class JwtTokenUtil {
         return claims.getSubject().split(",")[1];
     }
 
-    public Date getExpirationDate(String token){
+    public Date getExpirationDate(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody();
+
         return claims.getExpiration();
     }
 
@@ -67,7 +58,7 @@ public class JwtTokenUtil {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
-        }catch (SignatureException ex) {
+        } catch (SignatureException ex) {
             // logger.error("Invalid JWT signature - {}", ex.getMessage());
         } catch (MalformedJwtException ex) {
             // logger.error("Invalid JWT token - {}", ex.getMessage());

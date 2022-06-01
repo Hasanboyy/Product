@@ -1,32 +1,37 @@
-package com.product.application.security;
+package com.product.application.security.config;
 
+import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private CustomUserDetailService customUserDetailService;
+
+    private JwtTokenFilter jwtTokenFilter;
+
+    private AuthEntityPointJwt jwtAuthEntityPoint;
+
+
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("User").password("{noop}user").roles("user").and()
-                .withUser("Image").password("{noop}image").roles("image").and()
-                .withUser("Address").password("{noop}address77").roles("address").and()
-                .withUser("User Role").password("{noop}user_role77").roles("user_role");/*.and()
-                .withUser("Order").password("{noop}order77").roles("order").and()
-                .withUser("Order Item").password("{noop}order_item77").roles("order_item").and()
-                .withUser("Product").password("{noop}product77").roles("product").and()
-                .withUser("Product Type").password("{noop}product_type77").roles("product_type").and()
-                .withUser("Merchant").password("{noop}merchant77").roles("merchant").and()
-                .withUser("Divigatel").password("{noop}divigatel77").roles("divigatel").and()
-                .withUser("Brant").password("{noop}brant77").roles("brant");*/
+       auth.userDetailsService(customUserDetailService);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().cors().disable();
+
         http.authorizeRequests()
                 .antMatchers("/user/**").hasRole("user")
                 .antMatchers("/image/**").hasRole("image")
@@ -35,10 +40,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/image/create").hasRole("user")
                 .antMatchers(HttpMethod.POST, "/address/create").hasRole("user")
                 .antMatchers(HttpMethod.POST, "/user/role/create").hasRole("user")
-                .anyRequest().permitAll()
-                .and().httpBasic();
+                .anyRequest().permitAll().and()
+                .formLogin().permitAll();
 
+        http.addFilterBefore(
+                jwtTokenFilter,
+                UsernamePasswordAuthenticationFilter.class
+        );
 
         http.csrf().disable();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception{
+        return super.authenticationManagerBean();
+    }
+
+    public PasswordEncoder getPasswordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
     }
 }

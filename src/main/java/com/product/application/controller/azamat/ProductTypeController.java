@@ -22,20 +22,20 @@ public class ProductTypeController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/get{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<?> get(@PathVariable("id") Integer id){
         ProductTypeDto result = productTypeService.get(id);
         return ResponseEntity.ok(result);
     }
 
-    @PutMapping("/update{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Integer id,
                                     @RequestBody @Valid ProductTypeDto productTypeDto){
         boolean result = productTypeService.update(id, productTypeDto);
         return ResponseEntity.ok(result);
     }
 
-    @DeleteMapping("/delete{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Integer id){
         boolean result = productTypeService.delete(id);
         return ResponseEntity.ok(result);

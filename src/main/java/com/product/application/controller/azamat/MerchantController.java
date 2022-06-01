@@ -22,20 +22,20 @@ public class MerchantController {
         boolean result = menrchantService.create(merchandDto);
         return ResponseEntity.ok(result);
     }
-    @GetMapping("/get{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<?> get(@PathVariable("id") Integer id){
         MerchandDto result = menrchantService.get(id);
         return ResponseEntity.ok(result);
     }
 
-    @PutMapping("/update{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Integer id,
                                     @RequestBody @Valid MerchandDto merchandDto){
         boolean result = menrchantService.update(id, merchandDto);
         return ResponseEntity.ok(result);
     }
 
-    @DeleteMapping("/delete{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Integer id){
         boolean result = menrchantService.delete(id);
         return ResponseEntity.ok(result);

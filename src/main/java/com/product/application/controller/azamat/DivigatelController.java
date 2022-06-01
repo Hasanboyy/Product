@@ -23,20 +23,20 @@ public class DivigatelController {
         boolean result = divigatelService.create(divigatelDto);
         return ResponseEntity.ok(result);
     }
-    @GetMapping("/get{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<?> get(@PathVariable("id") Integer id){
         DivigatelDto result = divigatelService.get(id);
         return ResponseEntity.ok(result);
     }
 
-    @PutMapping("/update{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Integer id,
                                     @RequestBody @Valid DivigatelDto divigatelDto){
         boolean result = divigatelService.update(id, divigatelDto);
         return ResponseEntity.ok(result);
     }
 
-    @DeleteMapping("/delete{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Integer id){
         boolean result = divigatelService.delete(id);
         return ResponseEntity.ok(result);

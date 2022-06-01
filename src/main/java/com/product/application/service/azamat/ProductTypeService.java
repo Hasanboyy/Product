@@ -1,7 +1,6 @@
 package com.product.application.service.azamat;
 
 import com.product.application.dto.azamat.ProductTypeDto;
-import com.product.application.filter.azamat.ProductTypeFilter;
 import com.product.application.model.azamat.ProductType;
 import com.product.application.repository.azamat.ProductTypeRepository;
 import lombok.AllArgsConstructor;

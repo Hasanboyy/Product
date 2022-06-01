@@ -20,20 +20,20 @@ public class BrendContoller {
         boolean result = brendService.create(brendDto);
         return ResponseEntity.ok(result);
     }
-    @GetMapping("/get{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<?> get(@PathVariable("id") Integer id){
         BrendDto result = brendService.get(id);
         return ResponseEntity.ok(result);
     }
 
-    @PutMapping("/update{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Integer id,
                                     @RequestBody @Valid BrendDto brendDto){
         boolean result = brendService.update(id, brendDto);
         return ResponseEntity.ok(result);
     }
 
-    @DeleteMapping("/delete{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Integer id){
         boolean result = brendService.delete(id);
         return ResponseEntity.ok(result);

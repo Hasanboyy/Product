@@ -1,6 +1,7 @@
 package com.product.application.configuration;
 
 
+import com.product.application.dto.hasanboy.ROLES;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,6 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/user/**").permitAll()
+                .antMatchers("/user/admin/**").hasRole(String.valueOf(ROLES.ADMIN))
                 .antMatchers("/user-type/**").authenticated()
                 .antMatchers("/product/**").permitAll()
                 .anyRequest().permitAll();

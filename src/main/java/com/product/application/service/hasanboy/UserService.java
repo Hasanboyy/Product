@@ -4,11 +4,17 @@ import com.product.application.dto.hasanboy.UserDto;
 import com.product.application.exception.ProductException;
 import com.product.application.model.hasanboy.User;
 import com.product.application.repository.hasanboy.UserRepository;
+import com.product.application.repository.hasanboy.UserTypeRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -17,6 +23,7 @@ public class UserService {
     private ImageService imageService;
     private AddressService addressService;
     private UserRoleService userRoleService;
+    private UserTypeRepository userTypeRepository;
 
     public boolean create(UserDto dto) {
         Optional<User> optional = userRepository.
@@ -31,7 +38,7 @@ public class UserService {
         imageService.getEntity(dto.getImageId());
         addressService.getEntity(dto.getAddressId());
         userRoleService.getEntity(dto.getUserRoleId());
-        convertEntityToDto(dto, user);
+        convertEntityToDto(user, dto);
         return true;
     }
 
@@ -49,7 +56,7 @@ public class UserService {
         imageService.getEntity(dto.getImageId());
         addressService.getEntity(dto.getAddressId());
         userRoleService.getEntity(dto.getUserRoleId());
-        convertEntityToDto(dto, update);
+        convertEntityToDto(update, dto);
         return true;
     }
 
@@ -69,6 +76,17 @@ public class UserService {
     }
 
     public void convertDtoToEntity(UserDto dto, User user) {
+        user.setAddressId(dto.getAddressId());
+        user.setUserRoleId(dto.getUserRoleId());
+        user.setImageId(dto.getImageId());
+        user.setName(dto.getName());
+        user.setSurname(dto.getSurname());
+        user.setEmail(dto.getEmail());
+        user.setContact(dto.getContact());
+        user.setStatus(true);
+    }
+
+    public void convertEntityToDto(User user, UserDto dto) {
         dto.setImageId(user.getImageId());
         dto.setAddressId(user.getAddressId());
         dto.setUserRoleId(user.getUserRoleId());
@@ -79,14 +97,18 @@ public class UserService {
         dto.setStatus(true);
     }
 
-    public void convertEntityToDto(UserDto dto, User user) {
-        user.setAddressId(dto.getAddressId());
-        user.setUserRoleId(dto.getUserRoleId());
-        user.setImageId(dto.getImageId());
-        user.setName(dto.getName());
-        user.setSurname(dto.getSurname());
-        user.setEmail(dto.getEmail());
-        user.setContact(dto.getContact());
-        user.setStatus(true);
+    public List<UserDto> getAllForAdmin(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<User> users = userRepository.findAll(pageable);
+        //return users.stream().map(user -> convertEntityToDto(user, new UserDto())).collect(Collectors.toList());
+        return null;
+    }
+
+    public boolean changeUserToAdmin(Integer id) {
+        User user = getEntity(id);
+        user.setUserTypeId(1);
+        user.setUpdatedAt(LocalDateTime.now());
+        userRepository.save(user);
+        return true;
     }
 }

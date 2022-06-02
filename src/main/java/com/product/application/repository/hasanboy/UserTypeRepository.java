@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface UserTypeRepository extends JpaRepository<UserType,Integer> {
     Optional<UserType> findByIdAndDeletedAtIsNull(Integer id);
+
 }

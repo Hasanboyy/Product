@@ -37,8 +37,14 @@ public class  User {
     @OneToOne
     @JoinColumn(name = ("address"),insertable = false,updatable = false)
     private Address address;
-    @Column(name = ("adress_id"))
+    @Column(name = ("address_id"))
     private Integer addressId;
+
+    @OneToOne
+    @JoinColumn(name = ("user_type"),insertable = false,updatable = false)
+    private UserType userType;
+    @Column(name = ("user_id"))
+    private Integer userTypeId;
 
     @Column(name = ("created_at"))
     private LocalDateTime createdAt;

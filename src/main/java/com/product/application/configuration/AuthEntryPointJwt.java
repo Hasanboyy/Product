@@ -1,4 +1,4 @@
-package com.product.application.config;
+package com.product.application.configuration;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

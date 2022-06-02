@@ -27,7 +27,7 @@ public class UserDto {
     @NotBlank(message = ("The password cannot be empty or null"))
     private String password;
     @NotNull
-    private Integer contact;
+    private String contact;
     private Boolean status;
 
     private Image image;

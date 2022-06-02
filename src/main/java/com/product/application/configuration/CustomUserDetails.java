@@ -1,4 +1,4 @@
-package com.product.application.config;
+package com.product.application.configuration;
 
 import com.product.application.model.hasanboy.User;
 import org.springframework.security.core.GrantedAuthority;

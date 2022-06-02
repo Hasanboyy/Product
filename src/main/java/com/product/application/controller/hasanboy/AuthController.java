@@ -14,7 +14,6 @@ import javax.validation.Valid;
 @AllArgsConstructor
 @RequestMapping("/auth")
 public class AuthController {
-
     private AuthService authService;
 
     @PostMapping("/register")

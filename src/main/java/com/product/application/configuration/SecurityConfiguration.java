@@ -1,4 +1,4 @@
-package com.product.application.config;
+package com.product.application.configuration;
 
 
 import lombok.AllArgsConstructor;

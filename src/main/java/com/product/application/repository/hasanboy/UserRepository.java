@@ -8,4 +8,7 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User,Integer> , JpaSpecificationExecutor<User> {
     Optional<User> findByIdAndDeletedAtIsNull(Integer id);
+    Optional<User> findByEmailAndDeletedAtIsNull(String username);
+
+    Optional<User> findByEmailOrContactAndDeletedAtIsNull(String email, Integer contact);
 }

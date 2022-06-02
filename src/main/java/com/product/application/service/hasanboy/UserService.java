@@ -14,14 +14,17 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserService {
     private UserRepository userRepository;
-
     private ImageService imageService;
-
     private AddressService addressService;
-
     private UserRoleService userRoleService;
 
     public boolean create(UserDto dto) {
+        Optional<User> optional = userRepository.
+                findByEmailOrContactAndDeletedAtIsNull
+                        (dto.getEmail(),dto.getContact());
+        if (optional.isPresent()){
+            throw new ProductException("User already token");
+        }
         User user = new User();
         user.setId(dto.getId());
         user.setCreatedAt(LocalDateTime.now());

@@ -7,10 +7,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+ import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -22,10 +20,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 )
 @EnableWebSecurity
 @AllArgsConstructor
+//Butun sekurity uchun javob beradigan class
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private CustomUserDetailsService customUserDetailsService; // Managment users
     private JwtTokenFilter jwtTokenFilter; //Managment token
-    private AuthEntityPointJwt jwtAuthEntityPoint; // Managment token
+    private AuthEntryPointJwt jwtAuthEntityPoint; // Managment token
 
 
     @Override
@@ -38,11 +37,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers("/security/**").authenticated()
-                .antMatchers("/security/**").hasRole("ADMIN")
+                .antMatchers("/user/**").permitAll()
+                .antMatchers("/user-type/**").authenticated()
+                .antMatchers("/product/**").permitAll()
                 .anyRequest().permitAll();
 
-        http.exceptionHandling().authenticationEntryPoint(jwtAuthEntityPoint);
+        //http.exceptionHandling().authenticationEntryPoint(jwtAuthEntityPoint);
 
         http.addFilterBefore(
                 jwtTokenFilter,

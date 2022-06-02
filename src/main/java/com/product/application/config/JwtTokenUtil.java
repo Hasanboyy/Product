@@ -9,6 +9,7 @@ import java.util.Date;
 
 @Component
 @AllArgsConstructor
+//JWT token fabrikasi ya`ni boshqaruvchisi
 public class JwtTokenUtil {
 
     private final String jwtSecret = "sgok2nsljd8Fbvnm5Adldxjkbs9Wvnjcb";
@@ -24,7 +25,17 @@ public class JwtTokenUtil {
         jwtBuilder.signWith(SignatureAlgorithm.HS256, jwtSecret);
         jwtBuilder.setExpiration(new Date(System.currentTimeMillis() + (24 * 60 * 60 * 1000)));
         jwtBuilder.setIssuer(jwtIssuer);
+        return jwtBuilder.compact();
+    }
 
+    public String generateAccessToken(Integer id, String username) {
+        JwtBuilder jwtBuilder = Jwts.builder();
+        jwtBuilder.setId("some id");
+        jwtBuilder.setIssuedAt(new Date());
+        jwtBuilder.setSubject(String.format("%s,%s", id, username));
+        jwtBuilder.signWith(SignatureAlgorithm.HS256, jwtSecret);
+        jwtBuilder.setExpiration(new Date(System.currentTimeMillis() + (24 * 60 * 60 * 1000)));
+        jwtBuilder.setIssuer(jwtIssuer);
         return jwtBuilder.compact();
     }
 

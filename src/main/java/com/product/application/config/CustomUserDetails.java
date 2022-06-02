@@ -1,12 +1,10 @@
 package com.product.application.config;
 
-import com.product.application.model.hasanboy.ProfileEntity;
-
+import com.product.application.model.hasanboy.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,28 +13,26 @@ import lombok.Setter;
 
 @Getter
 @Setter
+//Foydalanuvchini va securityga o`tqizib berishlik uchun
 public class CustomUserDetails implements UserDetails {
-
     private final Integer id;
     private final String userName;
     private final String password;
     private final Boolean enabled;
-    private final String role;
 
-    private final List<GrantedAuthority> authorityList;
+    private final List<GrantedAuthority> roleList;
 
-    public CustomUserDetails(ProfileEntity profile){
-        this.id = profile.getId();
-        this.userName = profile.getUsername();
-        this.password = profile.getPassword();
-        this.enabled = profile.getEnabled();
-        this.role = profile.getRole();
-        this.authorityList = Arrays.asList(new SimpleGrantedAuthority(role));
+    public CustomUserDetails(User user){
+        this.id = user.getId();
+        this.userName = user.getEmail();
+        this.password = user.getPassword();
+        this.enabled = user.getStatus();
+        this.roleList = List.of(new SimpleGrantedAuthority(user.getUserRole().getName()));
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorityList;
+        return this.roleList;
     }
 
     @Override

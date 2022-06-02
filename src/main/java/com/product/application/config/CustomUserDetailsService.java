@@ -1,7 +1,8 @@
 package com.product.application.config;
 
-import com.product.application.model.hasanboy.ProfileEntity;
-import com.product.application.repository.hasanboy.ProfileRepository;
+import com.product.application.exception.ProductException;
+import com.product.application.model.hasanboy.User;
+import com.product.application.repository.hasanboy.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,20 +11,19 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+
+//Menagment (foydalanuchilar boshqaruvi) uchun javob beradigan class
 @Component
 @AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
-    private ProfileRepository profileRepository;
-
+   private UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("Keldi: loadUserByUsername.");
-        Optional<ProfileEntity> usersOptional = this.profileRepository.findByUserName(username);
-        usersOptional.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
-
-        ProfileEntity profile = usersOptional.get();
-        System.out.println(profile);
-
-        return new CustomUserDetails(profile);
+       Optional<User> optional = userRepository.findByEmailAndDeletedAtIsNull(username);
+       if (optional.isEmpty()){
+           throw new ProductException("User not found");
+       }
+       User user = optional.get();
+       return new CustomUserDetails(user);
     }
 }

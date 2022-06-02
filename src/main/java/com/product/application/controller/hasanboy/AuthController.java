@@ -1,51 +1,37 @@
 package com.product.application.controller.hasanboy;
 
-import com.product.application.config.JwtTokenUtil;
-import com.product.application.dto.hasanboy.AuthorizationDto;
-import com.product.application.dto.hasanboy.ProfileDetailDto;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+import com.product.application.dto.hasanboy.AuthDto;
+import com.product.application.dto.hasanboy.RegisterDto;
+import com.product.application.dto.hasanboy.UserDto;
+import com.product.application.service.hasanboy.AuthService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import lombok.AllArgsConstructor;
+
+import javax.validation.Valid;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/auth")
 public class AuthController {
-    private AuthenticationManager authenticationManager;
-    private JwtTokenUtil jwtTokenUtil;
 
-    @PostMapping("/login")
-    public ResponseEntity<ProfileDetailDto> login(@RequestBody AuthorizationDto request){
-        try {
-            Authentication authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(
-                            request.getUserName(),
-                            request.getPassword()));
+    private AuthService authService;
 
-            UserDetails user = (UserDetails) authentication.getPrincipal();
-
-            String jwtToken = jwtTokenUtil.generateAccessToken(user);
-
-            ProfileDetailDto dto = new ProfileDetailDto();
-            dto.setUserName(user.getUsername());
-            dto.setToken(jwtToken);
-
-            return ResponseEntity.ok().
-                    header(HttpHeaders.AUTHORIZATION, jwtToken)
-                    .body(dto);
-        }catch (BadCredentialsException ex){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody @Valid RegisterDto dto){
+        String result = authService.register(dto);
+        return ResponseEntity.ok(result);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody @Valid AuthDto dto){
+        AuthDto result = authService.login(dto);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/verification/{token}")
+    public ResponseEntity<?> verification(@PathVariable("token") String token){
+        UserDto result = authService.verification(token);
+        return ResponseEntity.ok(result);
+    }
 }

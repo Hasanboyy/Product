@@ -16,12 +16,13 @@ import java.io.IOException;
 
 @Component
 @AllArgsConstructor
+//JWT orqali foydalanuvchilar kirishi
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private JwtTokenUtil jwtTokenUtil;
     private CustomUserDetailsService customUserDetailsService;
 
-    @Override
+    @Override //harbir kelgan requestni filterdan otqizish
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain chain)
@@ -39,8 +40,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             return;
         }
 
-        String usrName = jwtTokenUtil.getUserName(token);
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(usrName);
+        String userName = jwtTokenUtil.getUserName(token);
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(userName);
 
         UsernamePasswordAuthenticationToken
                 authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -51,3 +52,4 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
 }
+

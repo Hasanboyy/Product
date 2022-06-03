@@ -16,10 +16,12 @@ import java.util.List;
 public class UserController {
     private UserService userService;
 
+
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody @Valid UserDto dto){
         boolean result = userService.create(dto);
         return ResponseEntity.ok(result);
+
     }
 
     @GetMapping("/get/{id}")

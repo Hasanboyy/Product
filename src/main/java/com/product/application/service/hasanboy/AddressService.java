@@ -21,7 +21,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class AddressService {
-    AddressRepository addressRepository;
+   private AddressRepository addressRepository;
 
     public boolean create(AddressDto dto) {
         Address address = new Address();

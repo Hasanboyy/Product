@@ -1,21 +1,21 @@
 package com.product.application.dto.hasanboy;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.product.application.model.hasanboy.Address;
-import com.product.application.model.hasanboy.Image;
 import com.product.application.model.hasanboy.UserRole;
+import com.product.application.model.hasanboy.Address;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.product.application.model.hasanboy.Image;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Email;
 
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
-
+    
     private Integer id;
     @NotBlank(message = ("The name cannot be empty or null"))
     private String name;

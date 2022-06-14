@@ -37,7 +37,7 @@ public class AuthService {
         user.setPassword(PasswordService.generateMD5(dto.getPassword()));
         user.setStatus(false);
         user.setCreatedAt(LocalDateTime.now());
-        user.setUserTypeId(2);
+        //user.setUserTypeId(2);
 
         /*UserType userType = new UserType();
         userType.setName("ROLE_USER");
@@ -48,7 +48,7 @@ public class AuthService {
 
         String token = jwtTokenUtil.generateAccessToken(user.getId(), user.getEmail());
         String link = "http://localhost:8080/auth/verification" + token;
-        String content = String.format("Plase click %s for verification", token);
+        String content = String.format("Please click %s for verification", link);
         try {
             messageService.send(user.getEmail(), "iSystem shop uz verification", content);
         } catch (Exception e) {

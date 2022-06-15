@@ -1,11 +1,11 @@
 package com.product.application.controller.hasanboy;
 
-import com.product.application.dto.hasanboy.AuthDto;
-import com.product.application.dto.hasanboy.RegisterDto;
-import com.product.application.dto.hasanboy.UserDto;
 import com.product.application.service.hasanboy.AuthService;
-import org.springframework.http.ResponseEntity;
+import com.product.application.dto.hasanboy.RegisterDto;
+import com.product.application.dto.hasanboy.AuthDto;
+import com.product.application.dto.hasanboy.UserDto;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 import lombok.AllArgsConstructor;
 
 import javax.validation.Valid;

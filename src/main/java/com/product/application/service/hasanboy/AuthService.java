@@ -1,15 +1,14 @@
 package com.product.application.service.hasanboy;
 
-import com.product.application.configuration.JwtTokenUtil;
-import com.product.application.dto.hasanboy.AuthDto;
-import com.product.application.dto.hasanboy.RegisterDto;
-import com.product.application.dto.hasanboy.UserDto;
-import com.product.application.exception.ProductException;
-import com.product.application.model.hasanboy.User;
-import com.product.application.model.hasanboy.UserType;
-import com.product.application.repository.hasanboy.UserRepository;
 import com.product.application.repository.hasanboy.UserTypeRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.product.application.repository.hasanboy.UserRepository;
+import com.product.application.configuration.JwtTokenUtil;
+import com.product.application.exception.ProductException;
+import com.product.application.dto.hasanboy.RegisterDto;
+import com.product.application.model.hasanboy.UserType;
+import com.product.application.dto.hasanboy.AuthDto;
+import com.product.application.dto.hasanboy.UserDto;
+import com.product.application.model.hasanboy.User;
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 
@@ -24,8 +23,6 @@ public class AuthService {
     private UserRepository userRepository;
     private UserTypeRepository userTypeRepository;
 
-    private PasswordEncoder passwordEncoder;//birtomonlama shifirlash
-
     public String register(RegisterDto dto) {
         Optional<User> optional = userRepository.findByEmailOrContactAndDeletedAtIsNull(dto.getEmail(), dto.getContact());
         if (optional.isPresent()) {
@@ -37,17 +34,17 @@ public class AuthService {
         user.setPassword(PasswordService.generateMD5(dto.getPassword()));
         user.setStatus(false);
         user.setCreatedAt(LocalDateTime.now());
-        //user.setUserTypeId(2);
+        user.setUserTypeId(2);
 
-        /*UserType userType = new UserType();
+        UserType userType = new UserType();
         userType.setName("ROLE_USER");
         userType.setCreatedAt(LocalDateTime.now());
         userType.setStatus(true);
-        userTypeRepository.save(userType);*/
+        userTypeRepository.save(userType);
         userRepository.save(user);
 
         String token = jwtTokenUtil.generateAccessToken(user.getId(), user.getEmail());
-        String link = "http://localhost:8080/auth/verification" + token;
+        String link = "http://localhost:8080/auth/verification/" + token;
         String content = String.format("Please click %s for verification", link);
         try {
             messageService.send(user.getEmail(), "iSystem shop uz verification", content);

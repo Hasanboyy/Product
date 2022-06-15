@@ -14,8 +14,8 @@ public class PasswordService {
         try {
             md = MessageDigest.getInstance("MD5");
             md.update(password.getBytes(StandardCharsets.UTF_8));
-            byte[] digist = md.digest();
-            return DatatypeConverter.printHexBinary(digist).toUpperCase();
+            byte[] digest = md.digest();
+            return DatatypeConverter.printHexBinary(digest).toUpperCase();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }

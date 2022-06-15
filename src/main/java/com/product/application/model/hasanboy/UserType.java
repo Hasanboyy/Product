@@ -15,9 +15,7 @@ public class UserType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String name;
-
     private Boolean status;
     @Column(name = ("created_at"))
     private LocalDateTime createdAt;

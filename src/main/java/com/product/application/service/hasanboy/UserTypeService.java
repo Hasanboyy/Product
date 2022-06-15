@@ -1,11 +1,11 @@
 package com.product.application.service.hasanboy;
 
-import com.product.application.dto.hasanboy.UserTypeDto;
-import com.product.application.exception.ProductException;
-import com.product.application.model.hasanboy.UserType;
 import com.product.application.repository.hasanboy.UserTypeRepository;
-import lombok.AllArgsConstructor;
+import com.product.application.exception.ProductException;
+import com.product.application.dto.hasanboy.UserTypeDto;
+import com.product.application.model.hasanboy.UserType;
 import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.Optional;

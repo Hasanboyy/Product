@@ -21,10 +21,14 @@ public class Product {
     private String description;
     private BigDecimal price;
     private Integer rate;
-    private Integer productType;
-
     private Boolean visible;
     private Boolean status;
+
+    @ManyToOne
+    @JoinColumn(name = ("product_type_id"), insertable = false, updatable = false)
+    private ProductType productType;
+    @Column(name = ("product_type_id"))
+    private Integer productTypeId;
 
     @Column(name = ("created_at"))
     private LocalDateTime createdAt;

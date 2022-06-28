@@ -43,7 +43,7 @@ public class ProductService {
         update.setDescription(productDto.getDescription());
         update.setPrice(productDto.getPrice());
         update.setRate(productDto.getRate());
-        update.setProductType(productDto.getProductType());
+        update.setProductTypeId(productDto.getProductType());
         update.setVisible(true);
         update.setStatus(true);
         update.setUpdatedAt(LocalDateTime.now());
@@ -112,7 +112,7 @@ public class ProductService {
         entity.setDescription(dto.getDescription());
         entity.setRate(dto.getRate());
         entity.setPrice(dto.getPrice());
-        entity.setProductType(dto.getProductType());
+        entity.setProductTypeId(dto.getProductType());
         entity.setVisible(true);
         entity.setStatus(true);
         entity.setCreatedAt(LocalDateTime.now());
@@ -122,7 +122,7 @@ public class ProductService {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setDescription(entity.getDescription());
-        dto.setProductType(entity.getProductType());
+        dto.setProductType(entity.getProductTypeId());
         dto.setPrice(entity.getPrice());
         dto.setRate(entity.getRate());
     }

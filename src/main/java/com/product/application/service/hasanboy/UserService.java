@@ -27,9 +27,7 @@ public class UserService {
 
     
     public boolean create(UserDto dto) {
-        Optional<User> optional = userRepository.
-                findByEmailOrContactAndDeletedAtIsNull
-                        (dto.getEmail(),dto.getContact());
+        Optional<User> optional = userRepository.findByEmailOrContactAndDeletedAtIsNull(dto.getEmail(),dto.getContact());
         if (optional.isPresent()){
             throw new ProductException("User already token");
         }
@@ -40,6 +38,7 @@ public class UserService {
         addressService.getEntity(dto.getAddressId());
         userRoleService.getEntity(dto.getUserRoleId());
         convertEntityToDto(user, dto);
+        userRepository.save(user);
         return true;
     }
 
@@ -58,6 +57,7 @@ public class UserService {
         addressService.getEntity(dto.getAddressId());
         userRoleService.getEntity(dto.getUserRoleId());
         convertEntityToDto(update, dto);
+        userRepository.save(update);
         return true;
     }
 
